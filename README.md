@@ -2,7 +2,7 @@
 
 **Aim:**
 
-> The aim of this project is to allow users to access and analyze data from multiple YouTube channels for  useful insights. 
+ The aim of this project is to allow users to access and analyze data from multiple YouTube channels for  useful insights. 
 
 **Technologies Used:**
 
