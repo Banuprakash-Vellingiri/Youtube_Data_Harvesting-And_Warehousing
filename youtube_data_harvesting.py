@@ -444,7 +444,7 @@ if selected=="Quries":
                 cursor.execute(query6)
                 result5 = cursor.fetchall()
                 table6 = pd.DataFrame(result5,columns=cursor.column_names)
-            
+                st.table(table6)
 
             elif questions == '7. What is the total number of views for each channel, and what are their corresponding channel names?':
                 query7 = "select channel_name as Channel_names,channel_views as Total_No_of_views from channel_data"
