@@ -1,3 +1,4 @@
+#Importing required packages
 import mysql.connector
 import pymongo
 import googleapiclient.discovery
@@ -101,7 +102,7 @@ def get_video_details(_youtube,video_id):
             # Function to convert duration int0 HH:MM:SS
             def convert_duration(durat):
                     regex = r'PT(\d+H)?(\d+M)?(\d+S)?'
-                    match = re.match(regex, durat)
+                    match = re.match(regex, durat) #using regular expression
                     if not match:
                         return '00:00:00'
                     hours, minutes, seconds = match.groups()
@@ -321,7 +322,7 @@ if selected == "Extract and Transform":
                         host = "localhost",
                         port=3306,
                         user = "root",
-                        password = "952427",
+                        password = "banu",
                         database = "sql_youtube_database")
 
                     cursor = mysql_database.cursor()
@@ -333,7 +334,7 @@ if selected == "Extract and Transform":
                     # Inserting Channel data :
                     try:
                        
-                        channel_data.to_sql('channel_data', con=engine, if_exists='append', index=False, method='multi')
+                        channel_data.to_sql('channel_data', con=engine, if_exists='append', index=False, method='multi') #SQLAlchemy syntax
                         print("Channel data uploaded successfully")
                     except Exception as e:
                         if 'Duplicate entry' in str(e):
@@ -377,7 +378,7 @@ if selected=="Quries":
                     host = "localhost",
                     port=3306,
                     user = "root",
-                    password = "952427",
+                    password = "banu",
                     database = "sql_youtube_database")
 
             cursor =mysql_database.cursor()
@@ -478,9 +479,8 @@ if selected=="Quries":
                 result9 = cursor.fetchall()
                 table10 = pd.DataFrame(result9,columns=cursor.column_names)
                 st.table(table10)
-                
 
-#Finally closing the connection ofSQL database:
 #------------------------------------------------------------------------------------------------------------------------------------
+                #Finally closing the connection ofSQL database:
                 cursor.close()
            
