@@ -25,6 +25,8 @@ The following technologies are used in this project are used to create an applic
 5. Query the SQL data warehouse: SQL queries are executed to join the tables in the SQL data warehouse and retrieve data for specific channels based on user input.SQLAlchemy in Python can be utilized to interact with the SQL database.
 
 6. Display data in the Streamlit app: The final step involves displaying the retrieved data in the Streamlit app. Streamlit's built-in data visualization features will enable us to create charts and graphs, aiding users in analyzing the data effectively.
+
+
 **References**
 
 - Streamlit Documentation: [https://docs.streamlit.io/](https://docs.streamlit.io/)
