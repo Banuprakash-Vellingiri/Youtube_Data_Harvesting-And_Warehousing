@@ -6,14 +6,14 @@
 
 **Technologies Used:**
 
-The following technologies are used in this project are used to create an application that allows users to retrieve, store, and query various YouTube channel's information.
--    Python
+The following technologies are used in this project are used to create an application that allows users to retrieve, store, and query various YouTube channel information.
+- Python
 - YouTube Data API
 - Streamlit
 - MongoDB 
 - MySQL
 
-**Approach**
+**Approach:**
 1. Streamlit app: Streamlit is good for quickly building data visualization and analysis tools.We can set up a streamlit environment  to create a simple UI where users can enter a YouTube channel ID, view channel details, and select channels to migrate to the data warehouse.
 
 2. YouTube data API: We will utilize the YouTube data API to retrieve channel and video data. The Google API client library for Python will be used to make requests to the API, allowing us to gather the required data quickly and efficiently.
@@ -27,7 +27,7 @@ The following technologies are used in this project are used to create an applic
 6. Display data in the Streamlit app: The final step involves displaying the retrieved data in the Streamlit app. Streamlit's built-in data visualization features will enable us to create charts and graphs, aiding users in analyzing the data effectively.
 
 
-**References**
+**References :**
 
 - Streamlit Documentation: [https://docs.streamlit.io/](https://docs.streamlit.io/)
 - YouTube API Documentation: [https://developers.google.com/youtube](https://developers.google.com/youtube)
