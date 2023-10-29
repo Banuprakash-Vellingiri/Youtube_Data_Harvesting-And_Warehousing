@@ -174,9 +174,9 @@ def channel_names():
     for i in db.channel_data.find():
         all_channel_names.append(i['channel_name'])
     return all_channel_names 
-def multi_select():
-      user_input =st.multiselect("Select the channel to be inserted into MySQL Tables",options = channel_names())
-      return(user_input)
+# def multi_select():
+#       user_input =st.multiselect("Select the channel to be inserted into MySQL Tables",options = channel_names())
+#       return(user_input)
 #------------------------------------------------------------------------------------------------------------------------------------
 #Setting  streamlit environment
  #Page congiguration
@@ -481,6 +481,6 @@ if selected=="Quries":
                 st.table(table10)
 
 #------------------------------------------------------------------------------------------------------------------------------------
-                #Finally closing the connection ofSQL database:
+                #Finally closing the connection of SQL database:
                 cursor.close()
            
