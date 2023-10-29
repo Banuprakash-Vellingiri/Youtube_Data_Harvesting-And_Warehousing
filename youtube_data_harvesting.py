@@ -1,4 +1,4 @@
-#Importing required packages
+#------------------------------------- Youtube Data Harvesting And Warehousing ------------------------------------------------------------
 import mysql.connector
 import pymongo
 import googleapiclient.discovery
@@ -8,8 +8,8 @@ from streamlit_option_menu import option_menu
 from sqlalchemy import create_engine
 from PIL import Image
 from datetime import datetime
-import time
 import re
+import plotly_express as px
 #------------------------------------------------------------------------------------------------------------------------------------
 #Connecting with Youtube using API
 api_key="AIzaSyDsWfd2BRAygrfLEQRbCXF4h6_CGhsduZE"
@@ -102,7 +102,7 @@ def get_video_details(_youtube,video_id):
             # Function to convert duration int0 HH:MM:SS
             def convert_duration(durat):
                     regex = r'PT(\d+H)?(\d+M)?(\d+S)?'
-                    match = re.match(regex, durat) #using regular expression
+                    match = re.match(regex, durat)
                     if not match:
                         return '00:00:00'
                     hours, minutes, seconds = match.groups()
@@ -322,7 +322,7 @@ if selected == "Extract and Transform":
                         host = "localhost",
                         port=3306,
                         user = "root",
-                        password = "banu",
+                        password = "952427",
                         database = "sql_youtube_database")
 
                     cursor = mysql_database.cursor()
@@ -334,7 +334,7 @@ if selected == "Extract and Transform":
                     # Inserting Channel data :
                     try:
                        
-                        channel_data.to_sql('channel_data', con=engine, if_exists='append', index=False, method='multi') #SQLAlchemy syntax
+                        channel_data.to_sql('channel_data', con=engine, if_exists='append', index=False, method='multi')
                         print("Channel data uploaded successfully")
                     except Exception as e:
                         if 'Duplicate entry' in str(e):
@@ -378,7 +378,7 @@ if selected=="Quries":
                     host = "localhost",
                     port=3306,
                     user = "root",
-                    password = "banu",
+                    password = "952427",
                     database = "sql_youtube_database")
 
             cursor =mysql_database.cursor()
@@ -402,66 +402,108 @@ if selected=="Quries":
                 cursor.execute(query1)
 
             #Storing the results in Pandas Dataframe:
-                result = cursor.fetchall()
-                table1 = pd.DataFrame(result,columns = cursor.column_names)
+                result1 = cursor.fetchall()
+                table1 = pd.DataFrame(result1,columns = cursor.column_names)
                 st.table(table1)
 
             elif questions == '2. Which channels have the most number of videos, and how many videos do they have?':
                 query2 = "select channel_name as Channel_names,count(video_name) as Most_Number_of_Videos from video_data v join channel_data c on c.channel_id = v.channel_id group by channel_name order by count(video_name) desc;"
                 cursor.execute(query2)
-                result1 = cursor.fetchall()
-                table2 = pd.DataFrame(result1,columns =cursor.column_names)
+                result2 = cursor.fetchall()
+                table2 = pd.DataFrame(result2,columns =cursor.column_names)           
                 st.table(table2)
-                st.bar_chart(table2.set_index("Channel_names"))
+                fig = px.bar(table2,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[1],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
   
 
             elif questions == '3. What are the top 10 most viewed videos and their respective channels?':
                 query3 = "select channel_name as Channel_names,video_name as Video_names,view_count as Top_10_Viewed_Videos from channel_data c join video_data v on c.channel_id = v.channel_id order by view_count desc limit 10;"
                 cursor.execute(query3)
-                result2 = cursor.fetchall()
-                table3 = pd.DataFrame(result2,columns=cursor.column_names)
+                result3 = cursor.fetchall()
+                table3 = pd.DataFrame(result3,columns=cursor.column_names)
                 st.table(table3)
+                fig = px.bar(table3,
+                     x=cursor.column_names[1],
+                     y=cursor.column_names[2],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
+                
             
             
             elif questions == '4. How many comments were made on each video, and what are their corresponding video names?':
                 query4 = "select channel_name as Channel_names, video_name as Video_names,comment_count as Comments_Count from video_data v join channel_data c on c.channel_id = v.channel_id order by comment_count desc;"
                 cursor.execute(query4)
-                result3 = cursor.fetchall()
-                table4 = pd.DataFrame(result3,columns=cursor.column_names)
+                result4 = cursor.fetchall()
+                table4 = pd.DataFrame(result4,columns=cursor.column_names)
                 st.table(table4)
+                fig = px.bar(table4,
+                     x=cursor.column_names[1],
+                     y=cursor.column_names[2],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
+                
                 
 
             elif questions == '5. Which videos have the highest number of likes, and what are their corresponding channel names?':
                 query5 = "select channel_name as Channel_names,video_name as Video_names,like_count as Number_of_likes from video_data v join channel_data c on c.channel_id = v.channel_id order by like_count desc;"
                 cursor.execute(query5)
-                result4 = cursor.fetchall()
-                table5 = pd.DataFrame(result4,columns=cursor.column_names)
+                result5 = cursor.fetchall()
+                table5 = pd.DataFrame(result5,columns=cursor.column_names)
                 st.table(table5)
+                fig = px.bar(table5,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[2],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
                 
 
             elif questions == '6. What is the total number of likes for each video, and what are their corresponding video names?':
                 query6 = "select channel_name as Channel_names,video_name as Video_names,like_count as Like_count from video_data v join channel_data c on c.channel_id = v.channel_id order by like_count desc;"
                 cursor.execute(query6)
-                result5 = cursor.fetchall()
-                table6 = pd.DataFrame(result5,columns=cursor.column_names)
+                result6 = cursor.fetchall()
+                table6 = pd.DataFrame(result6,columns=cursor.column_names)
                 st.table(table6)
+                fig = px.bar(table6,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[2],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
 
             elif questions == '7. What is the total number of views for each channel, and what are their corresponding channel names?':
                 query7 = "select channel_name as Channel_names,channel_views as Total_No_of_views from channel_data"
                 cursor.execute(query7)
-                result6 = cursor.fetchall()
-                table7 = pd.DataFrame(result6,columns=cursor.column_names)
+                result7= cursor.fetchall()
+                table7 = pd.DataFrame(result7,columns=cursor.column_names)
                 st.table(table7)
-                st.bar_chart(table7.set_index("Channel_names"))
+                fig = px.bar(table7,
+                     x=cursor.column_names[1],
+                     y=cursor.column_names[0],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
     
 
             elif questions == '8. What are the names of all the channels that have published videos in the year 2022?':
 
                 query8 = "select distinct c.channel_name as Channel_names,year(published_date) as Published_year from channel_data c join video_data v on c.channel_id = v.channel_id where year(published_date) = 2022;"
                 cursor.execute(query8)
-                result7 = cursor.fetchall()
-                table8 = pd.DataFrame(result7,columns=cursor.column_names)
+                result8 = cursor.fetchall()
+                table8 = pd.DataFrame(result8,columns=cursor.column_names)
                 st.table(table8)
+                fig = px.bar(table8,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[1],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
 
             elif questions=='9.What is the average duration of all videos in each channel, and what are their corresponding channel names?':
                  query9="""SELECT channel_title AS Channel_names,
@@ -470,17 +512,30 @@ if selected=="Quries":
                             GROUP BY channel_title
                             ORDER BY  AVG( TIME_TO_SEC(SUBTIME(duration, '00:00:00')) / 60) DESC"""
                  cursor.execute(query9)
-                 result8=cursor.fetchall()
-                 table9 = pd.DataFrame(result8, columns=cursor.column_names)
+                 result9=cursor.fetchall()
+                 table9 = pd.DataFrame(result9, columns=cursor.column_names)
                  st.table(table9)
+                 fig = px.bar(table9,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[1],
+                     orientation='v',
+                    )
+                 st.plotly_chart(fig)
             elif questions =='10. Which videos have the highest number of comments, and what are their corresponding channel names?':
                 query10 = "select channel_name as Channel_names,video_name as Video_names,comment_count as Highest_No_of_comments from channel_data c join video_data v on c.channel_id = v.channel_id order by comment_count desc limit 10;"
                 cursor.execute(query10)
-                result9 = cursor.fetchall()
-                table10 = pd.DataFrame(result9,columns=cursor.column_names)
+                result10 = cursor.fetchall()
+                table10 = pd.DataFrame(result10,columns=cursor.column_names)
                 st.table(table10)
+                fig = px.bar(table10,
+                     x=cursor.column_names[0],
+                     y=cursor.column_names[2],
+                     orientation='v',
+                    )
+                st.plotly_chart(fig)
+                
 
+#Finally closing the connection of SQL database:
 #------------------------------------------------------------------------------------------------------------------------------------
-                #Finally closing the connection of SQL database:
                 cursor.close()
            
