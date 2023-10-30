@@ -98,7 +98,7 @@ def get_video_details(_youtube,video_id):
             published_dates = video["snippet"]["publishedAt"]
             parsed_dates = datetime.strptime(published_dates, "%Y-%m-%dT%H:%M:%SZ")
             format_date = parsed_dates.strftime('%Y-%m-%d')
-            # Function to convert duration int0 HH:MM:SS
+            # Function to convert duration from default to HH:MM:SS using regular expression 
             def convert_duration(durat):
                     regex = r'PT(\d+H)?(\d+M)?(\d+S)?'
                     match = re.match(regex, durat)
