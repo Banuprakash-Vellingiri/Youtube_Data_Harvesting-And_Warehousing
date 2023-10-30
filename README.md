@@ -18,7 +18,7 @@ The following technologies are used in this project are used to create an applic
 
 2. YouTube data API: We will utilize the YouTube data API to retrieve channel and video data. The Google API client library for Python will be used to make requests to the API, allowing us to gather the required data quickly and efficiently.
 
-3. Data storage in  MongoDB : Once the data is retrieved from the YouTube API, we will store it in a MongoDB reservoir.Since it is suitable  for storing and handling unstructured data
+3. Data storage in  MongoDB : Once the data is retrieved from the YouTube API, we will store it in a MongoDB reservoir.Since it is suitable  for storing and handling unstructured data.
 
 4. Migrate data to  MYSQL : we will migrate the stored unstructured data in MongoDB to a SQL data warehouse.Comparing with others SQL databases MySQL database, can be used for this purpose, creating a structured data and its query is very simple to use.
 
@@ -35,3 +35,4 @@ The following technologies are used in this project are used to create an applic
 - SQLAlchemy Documentation: [https://docs.sqlalchemy.org/](https://docs.sqlalchemy.org/)
 - Python Documentation: [https://docs.python.org/](https://docs.python.org/)
 
+##linkedin video link :[https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop](https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop)
