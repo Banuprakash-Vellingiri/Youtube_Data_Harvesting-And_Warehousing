@@ -321,7 +321,7 @@ if selected == "Extract and Transform":
                                 host = "localhost",
                                 port=3306,
                                 user = "root",
-                                password = "952427",
+                                password = "952",
                                 database = "sql_youtube_database")
 
                     cursor = mysql_database.cursor()
@@ -377,7 +377,7 @@ if selected=="Queries":
                     host = "localhost",
                     port=3306,
                     user = "root",
-                    password = "952427",
+                    password = "952",
                     database = "sql_youtube_database")
 
             cursor =mysql_database.cursor()
