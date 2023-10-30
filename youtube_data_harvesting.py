@@ -1,4 +1,5 @@
 #------------------------------------- Youtube Data Harvesting And Warehousing ------------------------------------------------------------
+#Importing neccessary packages
 import mysql.connector
 import pymongo
 import googleapiclient.discovery
@@ -53,8 +54,7 @@ def get_playlist_data(df):
 
     return playlist_ids
 
-#Creating a function to get video ids:
-
+#Creating a function to get video ids
 @st.cache_data
 def get_video_ids(_youtube,playlist_id_data):
     video_id = []
@@ -80,8 +80,7 @@ def get_video_ids(_youtube,playlist_id_data):
     return video_id
         
 
-#Creating a function to get Video details:
-
+#Creating a function to get Video details
 @st.cache_data
 def get_video_details(_youtube,video_id):
 
@@ -130,7 +129,6 @@ def get_video_details(_youtube,video_id):
     return (all_video_stats)
 
 #Creating a function to get comment details
-
 @st.cache_data
 def get_comments(_youtube,video_ids):
     comments_data= []
@@ -174,12 +172,10 @@ def channel_names():
     for i in db.channel_data.find():
         all_channel_names.append(i['channel_name'])
     return all_channel_names 
-# def multi_select():
-#       user_input =st.multiselect("Select the channel to be inserted into MySQL Tables",options = channel_names())
-#       return(user_input)
 #------------------------------------------------------------------------------------------------------------------------------------
 #Setting  streamlit environment
- #Page congiguration
+
+#Page congiguration
 page_logo = Image.open("youtube_chart.png")
 st.set_page_config(page_title= "Youtube Data Harvesting and Warehousing by Banuprakash V",
                  
@@ -198,26 +194,29 @@ with st.sidebar:
                                    "icon": {"font-size": "20px"},
                                    "container" : {"max-width": "600px"},
                                    "nav-link-selected": {"background-color": "orange"}})
+#------------------------------------------------------------------------------------------------------------------------------------
+#Home page
+
 if selected == "Home":
 
-    st.info("## :white[Youtube Data Harvesting And Warehousing]")
-    col1,col2 = st.columns(2,gap="medium")
-    col1.markdown("### :orange[Technologies Used :]")
-    col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1.&nbsp;Python]")
-    col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2.&nbsp;Youtube Data API]")
-    col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3.&nbsp;MongoDB]")
-    col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4.&nbsp;MYSQL]")
-    col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4.&nbsp;Streamlit]")
-    col1.markdown("### :orange[Synopsis:]")
-    col1.markdown("### :white[:blue[Step 1]: Retrieving the Youtube channels data from Youtube data API.]")
-    col1.markdown("### :white[:blue[Step 2]: Storing the data into MongoDB.]")
-    col1.markdown("### :white[:blue[Step 3]: Migrating and transforming the data from MongoDb to SQL database.]")
-    col1.markdown("### :white[:blue[Step 4]: Querying the data and displaying it in Streamlit application.]")
-    col2.write("#   ")
-    col2.write("#   ")
-    col2.write("#   ")
-    col2.image("data_image.png")
-
+        st.info("## :white[Youtube Data Harvesting And Warehousing]")
+        col1,col2 = st.columns(2,gap="medium")
+        col1.markdown("### :orange[Technologies Used :]")
+        col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1.&nbsp;Python]")
+        col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;2.&nbsp;Youtube Data API]")
+        col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;3.&nbsp;MongoDB]")
+        col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4.&nbsp;MYSQL]")
+        col1.markdown("### :white[ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;4.&nbsp;Streamlit]")
+        col1.markdown("### :orange[Synopsis:]")
+        col1.markdown("### :white[:blue[Step 1]: Retrieving the Youtube channels data from Youtube data API.]")
+        col1.markdown("### :white[:blue[Step 2]: Storing the data into MongoDB.]")
+        col1.markdown("### :white[:blue[Step 3]: Migrating and transforming the data from MongoDb to SQL database.]")
+        col1.markdown("### :white[:blue[Step 4]: Querying the data and displaying it in Streamlit application.]")
+        col2.write("#   ")
+        col2.write("#   ")
+        col2.write("#   ")
+        col2.image("data_image.png")
+    
 
 #------------------------------------------------------------------------------------------------------------------------------------
 #Extracting the data from Youtube
@@ -225,6 +224,8 @@ if selected == "Home":
 if selected == "Extract and Transform":
     st.info("## Extract and transform data")
     tab1,tab2= st.tabs(["# :orange[EXTRACT ] ",":orange[TRANSFORM]"])    
+    
+    #Extract tab
     with tab1:
         st.markdown("#    ")
         st.markdown("### :blue[ Enter Channel ID :]")
@@ -262,7 +263,7 @@ if selected == "Extract and Transform":
             col3.insert_many(get_comment_data)
 
             st.success("Data uploaded Successfully.....")
-
+   #Transform tab
     with tab2: 
           def channel_names():   
                     ch_name = []
@@ -312,18 +313,16 @@ if selected == "Extract and Transform":
 
                     # Fetch video_ids from mongoDb
                     video_ids = video_data["video_id"].to_list() 
-                    comment_data = get_comment_details(video_ids,col3)
-                    # st.write(comment_data)
-                            
+                    comment_data = get_comment_details(video_ids,col3)       
                     client.close()  
 #------------------------------------------------------------------------------------------------------------------------------------
                     #Connecting to MySQL Database 
                     mysql_database = mysql.connector.connect(
-                        host = "localhost",
-                        port=3306,
-                        user = "root",
-                        password = "952427",
-                        database = "sql_youtube_database")
+                                host = "localhost",
+                                port=3306,
+                                user = "root",
+                                password = "952427",
+                                database = "sql_youtube_database")
 
                     cursor = mysql_database.cursor()
 
@@ -385,18 +384,19 @@ if selected=="Queries":
   #------------------------------------------------------------------------------------------------------------------------------------          
             st.info("## Quries Section")
             questions = st.selectbox("Select the questions given below:",
-            [' Click the question that you would like to query',
-            '1. What are the names of all the videos and their corresponding channels?',
-            '2. Which channels have the most number of videos, and how many videos do they have?',
-            '3. What are the top 10 most viewed videos and their respective channels?',
-            '4. How many comments were made on each video, and what are their corresponding video names?',
-            '5. Which videos have the highest number of likes, and what are their corresponding channel names?',
-            '6. What is the total number of likes for each video, and what are their corresponding video names?',
-            '7. What is the total number of views for each channel, and what are their corresponding channel names?',
-            '8. What are the names of all the channels that have published videos in the year 2022?',
-            '9.What is the average duration of all videos in each channel, and what are their corresponding channel names?',
-            '10. Which videos have the highest number of comments, and what are their corresponding channel names?'])
-            
+                                    [' Click the question that you would like to query',
+                                    '1. What are the names of all the videos and their corresponding channels?',
+                                    '2. Which channels have the most number of videos, and how many videos do they have?',
+                                    '3. What are the top 10 most viewed videos and their respective channels?',
+                                    '4. How many comments were made on each video, and what are their corresponding video names?',
+                                    '5. Which videos have the highest number of likes, and what are their corresponding channel names?',
+                                    '6. What is the total number of likes for each video, and what are their corresponding video names?',
+                                    '7. What is the total number of views for each channel, and what are their corresponding channel names?',
+                                    '8. What are the names of all the channels that have published videos in the year 2022?',
+                                    '9.What is the average duration of all videos in each channel, and what are their corresponding channel names?',
+                                    '10. Which videos have the highest number of comments, and what are their corresponding channel names?'
+                                    ])
+                                    
             if questions == '1. What are the names of all the videos and their corresponding channels?':
                 query1 = "select channel_name as Channel_names ,video_name as Video_names from channel_data c join video_data v on c.channel_id = v.channel_id;"
                 cursor.execute(query1)
@@ -538,4 +538,3 @@ if selected=="Queries":
 #Finally closing the connection of SQL database:
 #------------------------------------------------------------------------------------------------------------------------------------
                 cursor.close()
-           
