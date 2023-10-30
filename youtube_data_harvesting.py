@@ -189,7 +189,7 @@ st.set_page_config(page_title= "Youtube Data Harvesting and Warehousing by Banup
 #Side bar configuration
 channel_list=[]
 with st.sidebar:
-    selected = option_menu("Menu", ["Home","Extract and Transform","Quries"], 
+    selected = option_menu("Menu", ["Home","Extract and Transform","Queries"], 
                            icons=["house","arrow-left-right","card-list"],
                            default_index=0,
                            orientation="vertical",
@@ -371,8 +371,8 @@ if selected == "Extract and Transform":
 
                     engine.dispose()
  #------------------------------------------------------------------------------------------------------------------------------------                   
-#Quries 
-if selected=="Quries": 
+#Queries 
+if selected=="Queries": 
             #Connecting to MYSQL database                
             mysql_database= mysql.connector.connect(
                     host = "localhost",
