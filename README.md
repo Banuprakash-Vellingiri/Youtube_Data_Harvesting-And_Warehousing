@@ -35,4 +35,4 @@ The following technologies are used in this project are used to create an applic
 - SQLAlchemy Documentation: [https://docs.sqlalchemy.org/](https://docs.sqlalchemy.org/)
 - Python Documentation: [https://docs.python.org/](https://docs.python.org/)
 
-## linkedin video link :[https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop](https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop)
+#check out the video #linkedin :[https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop](https://www.linkedin.com/posts/banuprakash-v-a088a3191_youtubeabrdataabrharvestingabrandabrwarehousing-activity-7124802076911575040-nExR/?utm_source=share&utm_medium=member_desktop)
