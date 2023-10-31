@@ -17,7 +17,6 @@ api_key="AIzaSyDsWfd2BRAygrfLEQRbCXF4h6_CGhsduZE"
 youtube = googleapiclient.discovery.build("youtube","v3",developerKey=api_key)
 #------------------------------------------------------------------------------------------------------------------------------------
 # Connecting to MongoDB
-
 client = pymongo.MongoClient("mongodb://localhost:27017/")
 db = client["mongodb_youtube_database"]
 #Creating the collectoions
@@ -182,8 +181,11 @@ st.set_page_config(page_title= "Youtube Data Harvesting and Warehousing by Banup
                    page_icon= page_logo,
                    layout= "wide",
                    initial_sidebar_state= "expanded")
-#Side bar configuration
+#------------------------------------------------------------------------------------------------------------------------------------
+#channel name list 
 channel_list=[]
+#------------------------------------------------------------------------------------------------------------------------------------
+#Side bar configuration
 with st.sidebar:
     selected = option_menu("Menu", ["Home","Extract and Transform","Queries"], 
                            icons=["house","arrow-left-right","card-list"],
