@@ -329,7 +329,8 @@ if selected == "Extract and Transform":
                     cursor = mysql_database.cursor()
 
 #------------------------------------------------------------------------------------------------------------------------------------
-                    #Creating an SQLAlchemy engine to connect to the MYSQL database:
+                    #Creating an SQLAlchemy engine to connect to the MYSQL database: 
+                    #Converting pandas DataFrame into Sql tables
                     engine = create_engine('mysql+mysqlconnector://root:952427@localhost/sql_youtube_database')
 #------------------------------------------------------------------------------------------------------------------------------------
                     # Inserting Channel data :
